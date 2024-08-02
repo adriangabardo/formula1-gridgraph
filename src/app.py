@@ -7,6 +7,9 @@ def main():
     # Set up the argument parser
     parser = argparse.ArgumentParser(description="Process Formula 1 season data.")
     parser.add_argument("--year", type=int, required=True, help="The year of the season to process")
+    parser.add_argument(
+        "--drivers", nargs="+", required=True, help="List of drivers to plot (e.g., HAM VER NOR LEC SAI)"
+    )
     args = parser.parse_args()
 
     # Use the parsed year argument
@@ -16,9 +19,7 @@ def main():
     print("Finished")
     print(results)
 
-    drivers_to_plot = ["HAM", "VER", "NOR", "LEC", "SAI"]
-
-    for specific_driver in drivers_to_plot:
+    for specific_driver in args.drivers:
         plot_for_driver(
             season_results=results, year=year, specific_driver=specific_driver, save_to_file=True, display_figure=False
         )
